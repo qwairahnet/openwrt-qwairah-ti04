@@ -1,0 +1,24 @@
+name: QWAIRAH-TI08-Build
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build TI08 / IPQ40xx Firmware
+        run: |
+          sudo apt update && sudo apt install -y build-libncurses-dev gawk git libssl-dev wget unzip zlib1g-dev
+          git clone https://github.com/openwrt/openwrt.git openwrt && cd openwrt
+          git checkout v23.05.3
+          ./scripts/feeds update -a && ./scripts/feeds install -a
+          cat << 'CONF' > .config
+          CONFIG_TARGET_ipq40xx=y
+          CONFIG_TARGET_ipq40xx_generic=y
+          CONFIG_TARGET_ipq40xx_generic_DEVICE_giga_kt-9200=y
+          CONFIG_PACKAGE_luci=y
+          CONF
+          make defconfig && make -j$(nproc)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: QWAIRAH-TI08-Firmware
+          path: openwrt/bin/targets/ipq40xx/generic/*sysupgrade.bin
