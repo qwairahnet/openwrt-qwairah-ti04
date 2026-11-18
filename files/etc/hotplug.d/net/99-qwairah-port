@@ -1,0 +1,2 @@
+#!/bin/sh
+[ "$ACTION" = "add" ] || [ "$ACTION" = "move" ] && /usr/bin/qwairah-telegram "تغيير في حالة المنفذ/الكرت 🔌" "($INTERFACE - $ACTION)"

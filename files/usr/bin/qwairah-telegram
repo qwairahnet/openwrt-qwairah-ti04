@@ -1,0 +1,26 @@
+#!/bin/sh
+TOKEN=$(uci -q get qwairah.telegram.token)
+CHAT_ID=$(uci -q get qwairah.telegram.chat_id)
+[ -z "$TOKEN" ] || [ -z "$CHAT_ID" ] && exit 0
+
+EVENT="$1"
+INFO="$2"
+MODEL=$(cat /tmp/sysinfo/model 2>/dev/null || echo "QWAIRAH-Device")
+IP=$(uci -q get network.lan.ipaddr || echo "192.168.1.1")
+DHCP_ST=$(uci -q get dhcp.lan.ignore)
+[ "$DHCP_ST" = "1" ] && DHCP_TXT="مغلق ❌" || DHCP_TXT="مفعل ✅"
+PORTS=$(swconfig dev switch0 show 2>/dev/null | grep "link:" | tr '\n' ' ' || ip -br link | grep UP | awk '{print $1}' | tr '\n' ' ')
+WIFI_INFO=$(iwinfo 2>/dev/null | grep -E "ESSID|Channel|Tx-Power" | tr '\n' ' ')
+
+MSG="🟢 *إشعار شبكة QWAIRAH* 🟡%0A"
+MSG="${MSG}📡 *الجهاز:* ${MODEL}%0A"
+MSG="${MSG}🌐 *الآيبي:* ${IP}%0A"
+MSG="${MSG}⚙️ *الحدث:* ${EVENT} ${INFO}%0A"
+MSG="${MSG}🔌 *حالة DHCP:* ${DHCP_TXT}%0A"
+MSG="${MSG}🔗 *المنافذ النشطة:* ${PORTS}%0A"
+MSG="${MSG}📶 *الواي فاي:* ${WIFI_INFO}"
+
+curl -s -k -X POST "https://api.telegram.org/bot${TOKEN}/sendMessage" \
+  -d "chat_id=${CHAT_ID}" \
+  -d "parse_mode=Markdown" \
+  -d "text=${MSG}" >/dev/null 2>&1 &

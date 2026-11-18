@@ -1,0 +1,17 @@
+:root {
+  --qw-green: #0b5e2e;
+  --qw-green-bright: #128c46;
+  --qw-gold: #d4af37;
+  --qw-gold-bright: #f5d061;
+  --qw-dark: #072915;
+}
+body { background: #f3f7f4 !important; font-family: Tahoma, Arial, sans-serif !important; }
+header, .main > .main-left { background: linear-gradient(180deg, var(--qw-dark) 0%, var(--qw-green) 100%) !important; border-right: 3px solid var(--qw-gold) !important; }
+header .brand { color: var(--qw-gold-bright) !important; font-weight: bold !important; text-shadow: 0 0 8px rgba(212,175,55,0.6); }
+.nav > li > a, .slide-menu > li > a { color: #ffffff !important; border-bottom: 1px solid rgba(212,175,55,0.2); }
+.nav > li > a:hover, .nav > .active > a { background: linear-gradient(90deg, var(--qw-gold) 0%, var(--qw-green-bright) 100%) !important; color: #000 !important; font-weight: bold; }
+.cbi-button, .btn { background: linear-gradient(135deg, var(--qw-green) 0%, var(--qw-green-bright) 100%) !important; color: var(--qw-gold-bright) !important; border: 1px solid var(--qw-gold) !important; border-radius: 6px; font-weight: bold; }
+.cbi-section { border-top: 3px solid var(--qw-gold) !important; box-shadow: 0 2px 10px rgba(11,94,46,0.12) !important; border-radius: 8px; }
+h2, h3 { color: var(--qw-green) !important; border-bottom: 1px solid var(--qw-gold); padding-bottom: 4px; }
+.qw-banner { text-align: center; background: var(--qw-dark); padding: 10px; border-bottom: 2px solid var(--qw-gold); }
+.qw-banner img { max-height: 75px; border-radius: 10px; border: 2px solid var(--qw-gold); box-shadow: 0 0 12px var(--qw-gold); }

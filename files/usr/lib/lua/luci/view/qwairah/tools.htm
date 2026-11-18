@@ -1,0 +1,12 @@
+<%+header%>
+<h2>أدوات الفحص والسرعة والقنوات - QWAIRAH</h2>
+<div class="cbi-section">
+  <h3>1. فحص القنوات والشبكات المجاورة (الأقوى إشارة)</h3>
+  <button class="cbi-button" onclick="fetch('/cgi-bin/luci/admin/network/wireless_status').then(()=>alert('استخدم زر Scan في صفحة Wireless لترتيب الإشارات'))">تحديث القنوات</button>
+  <pre id="scan_out" style="background:#072915;color:#f5d061;padding:10px;border-radius:6px;">للفحص المباشر انتقل إلى Network -> Wireless -> Scan</pre>
+</div>
+<div class="cbi-section">
+  <h3>2. اختبار البنق (Ping) وسرعة الاتصال</h3>
+  <p>استخدم قائمة <b>Network -> Diagnostics</b> أو <b>Terminal</b> المدمج لفحص Ping و iPerf3 مباشرة.</p>
+</div>
+<%+footer%>
