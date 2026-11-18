@@ -1,0 +1,8 @@
+#!/bin/sh
+# QWAIRAH 70 Rules & Telegram Integration
+uci set network.lan.ipaddr='192.168.1.1'
+uci set system.@system[0].zonename='Asia/Aden'
+uci set system.@system[0].timezone='AST-3'
+uci commit network
+uci commit system
+exit 0
